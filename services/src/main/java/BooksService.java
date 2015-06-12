@@ -26,17 +26,30 @@ public class BooksService implements Books {
 
     @Override
     public List<Books> getAllBooks() {
-        return null;
+        List<Books> pages = null;
+        try {
+            session = booksDaoImp.getSession();
+            transaction = session.beginTransaction();
+            pages = booksDaoImp.getAll();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("Error get list of Categories from database" + e);
+            transaction.rollback();
+        } catch (PersistException e) {
+            logger.error(e);
+        }finally {
+            sessionStatus.set(true);
+            booksDaoImp.clearSession(sessionStatus);
+        }
+        return pages;
+
     }
 
     @Override
     public Books saveBooks(Books books) {
-
-        Long savedPageId = null;
         try {
             session = booksDaoImp.getSession();
             transaction = session.beginTransaction();
-            books.setStatus(StatusEnum.SAVED);
             booksDaoImp.save(books);
             transaction.commit();
         } catch (HibernateException e) {
