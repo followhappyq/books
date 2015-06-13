@@ -81,7 +81,7 @@ public class DaoFactoryImpl implements IDaoFactory {
      * @throws exception.PersistException
      */
     @Override
-    public IGenDao getDao(Class dtoClass) throws PersistException {
+    public BooksDao getDao(Class dtoClass) throws PersistException {
         IDaoCreator creator = creators.get(dtoClass);
         if (creator == null) {
             throw new PersistException("Dao object for " + dtoClass + " not found.");
