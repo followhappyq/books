@@ -18,11 +18,11 @@ public interface IDaoFactory {
      * IGenericDao which implements methods in the code
      */
     interface IDaoCreator {
-        IGenDao create();
+        BooksDao create();
     }
 
     /** Returns object to control a persistent state of the object without created connection
      * Connection created in each method */
-    IGenDao getDao(Class dtoClass) throws PersistException;
+    BooksDao getDao(Class dtoClass) throws PersistException;
 
 }
